@@ -1,0 +1,22 @@
+#######################################################################
+# ENVIRONMENT VARIABLE		DEFAULT		Description
+#######################################################################
+NOVA_DB_USER			nova
+NOVA_DB_NAME			nova
+NOVA_KEYSTONE_USER		admin
+NOVA_KEYSTONE_PASSWORD		kolla
+ADMIN_TENANT_NAME		admin
+RABBIT_USERID			guest
+RABBIT_PASSWORD			guest
+NETWORK_MANAGER                 nova		Use nova networking
+GLANCE_API_SERVICE_HOST		no default
+KEYSTONE_PUBLIC_SERVICE_HOST	no default
+NOVA_KEYSTONE_PASSWORD		no default
+
+# command to launch nova-compute
+# share /dev, /run, /sys/fs/cgroup (-v option)
+# set environment variable overrides to match my localrc (-e option)
+# share host networking (--net=host option)
+# run sdake/centos-rdo-nova-compute
+
+sudo docker run -e "KEYSTONE_ADMIN_TOKEN=123456" -e "NOVA_DB_PASSWORD=123456" -e "RABBIT_PASSWORD=123456" -e NETWORK_MANAGER="nova" -e "GLANCE_API_SERVICE_HOST=127.0.0.1" -e "KEYSTONE_PUBLIC_SERVICE_HOST=127.0.0.1" -e "NOVA_KEYSTONE_PASSWORD=123456" -v /dev:/dev -v /run:/run -v /sys/fs/cgroup:/sys/fs/cgroup --net=host sdake/centos-rdo-nova-compute 
