@@ -1,5 +1,5 @@
 FROM centos
-MAINTAINER Steven Dake (sdake@redhat.com>
+MAINTAINER Steven Dake <sdake@redhat.com>
 
 # Set up repositories
 RUN yum install -y https://rdo.fedorapeople.org/rdo-release.rpm
