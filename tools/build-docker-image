@@ -1,0 +1,105 @@
+#!/bin/bash
+
+TOPDIR=$(git rev-parse --show-toplevel)
+IMGDIR="$(cd "$(dirname "$0")" && pwd)"
+
+RELEASE_NAMESPACE=kollaglue
+NAMESPACE=kollaglue
+PREFIX=fedora-rdo-
+TAG=$(git rev-parse --short HEAD)
+
+usage () {
+    cat <<EOF
+$0: usage: $0 [options]
+
+Options:
+
+--namespace, -n <namespace>
+--tag, -t <tag>
+--push, -p
+--no-cache, -N
+--release
+EOF
+}
+
+[ -f $IMGDIR/.buildconf ] && . $IMGDIR/.buildconf
+[ -f $TOPDIR/.buildconf ] && . $TOPDIR/.buildconf
+
+ARGS=$(getopt -o 'n:t:pN' -l help,namespace:,push,release,tag:,no-cache -- "$@") || { usage >&2; exit 2; }
+
+eval set -- "$ARGS"
+
+while :; do
+    case "$1" in
+
+    (--help)    usage
+                exit 0
+                ;;
+
+    (--release) MODE=release
+                NAMESPACE=$RELEASE_NAMESPACE
+                TAG=latest
+                ;;
+
+    (--tag|-t)  shift
+                TAG="$1"
+                ;;
+
+    (--push|-p) PUSH=1
+                ;;
+
+    (--no-cache|-N)
+                BUILDFLAGS="${BUILDFLAGS} --no-cache"
+                ;;
+
+    (--namespace|-n)
+                shift
+                NAMESPACE="$1"
+                ;;
+
+    (--)        break
+                ;;
+
+    esac
+
+    shift
+done
+
+if [ "$NAMESPACE" = "$RELEASE_NAMESPACE" ] \
+    && [ "$TAG" = "latest" ] \
+    && ! [ "$MODE" = "release" ]; then
+
+    echo "ERROR: use --release to build a release image" >&2
+    exit 1
+fi
+
+IMAGE="${PREFIX}${IMGDIR##*/}"
+FULLIMAGE="${NAMESPACE}/${IMAGE}${TAG:+:${TAG}}"
+
+cat <<EOF
+======================================================================
+$FULLIMAGE
+======================================================================
+
+EOF
+
+if [ "$MODE" = "release" ]; then
+    echo "*** YOU ARE BUILDING A RELEASE IMAGE ***"
+    echo
+fi
+
+if ! docker build ${BUILDFLAGS} -t "$FULLIMAGE" $IMGDIR; then
+    echo "ERROR: failed to build $FULLIMAGE"
+    exit 1
+fi
+
+echo "Built: $FULLIMAGE"
+
+if [ "$PUSH" = 1 ]; then
+    if ! docker push "$FULLIMAGE"; then
+        echo "ERROR: failed to push $FULLIMAGE"
+        exit 1
+    fi
+
+    echo "Pushed: $FULLIMAGE"
+fi
