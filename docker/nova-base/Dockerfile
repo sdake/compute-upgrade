@@ -1,5 +1,5 @@
-FROM kollaglue/fedora-rdo-base
-MAINTAINER Kolla Project (https://launchpad.net/kolla)
+FROM sdake/centos-rdo-base
+MAINTAINER Steven Dake <sdake@redhat.com>
 
 RUN yum -y install openstack-nova-common \
      python-keystoneclient \
