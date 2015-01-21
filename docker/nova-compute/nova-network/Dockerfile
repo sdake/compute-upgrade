@@ -1,5 +1,5 @@
-FROM kollaglue/fedora-rdo-nova-base
-MAINTAINER Kolla Project (https://launchpad.net/kolla)
+FROM sdake/centos-rdo-nova-base
+MAINTAINER Steven Dake <sdake@redhat.com>
 
 RUN yum -y install openstack-nova-network \
         bridge-utils && yum clean all
