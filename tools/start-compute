@@ -21,4 +21,6 @@
 # share host networking (--net=host option)
 # run sdake/centos-rdo-nova-compute
 
-sudo docker run --privileged -e "KEYSTONE_ADMIN_TOKEN=123456" -e "NOVA_DB_PASSWORD=123456" -e "RABBIT_PASSWORD=123456" -e NETWORK_MANAGER="nova" -e "GLANCE_API_SERVICE_HOST=192.168.1.100" -e "KEYSTONE_PUBLIC_SERVICE_HOST=192.168.1.100" -e "RABBITMQ_SERVICE_HOST=192.168.1.100" -e "NOVA_KEYSTONE_PASSWORD=123456" -v /dev:/dev -v /run:/run -v /sys/fs/cgroup:/sys/fs/cgroup -v /var/lib:/var/lib --net=host sdake/centos-rdo-nova-compute
+sudo docker run -d --privileged -e "KEYSTONE_ADMIN_TOKEN=123456" -e "NOVA_DB_PASSWORD=123456" -e "RABBIT_PASSWORD=123456" -e NETWORK_MANAGER="nova" -e "GLANCE_API_SERVICE_HOST=192.168.1.100" -e "KEYSTONE_PUBLIC_SERVICE_HOST=192.168.1.100" -e "RABBITMQ_SERVICE_HOST=192.168.1.100" -e "NOVA_KEYSTONE_PASSWORD=123456" -v /dev:/dev -v /run:/run -v /sys/fs/cgroup:/sys/fs/cgroup -v /var/lib:/var/lib --net=host sdake/centos-rdo-nova-network
+
+sudo docker run -d --privileged -e "KEYSTONE_ADMIN_TOKEN=123456" -e "NOVA_DB_PASSWORD=123456" -e "RABBIT_PASSWORD=123456" -e NETWORK_MANAGER="nova" -e "GLANCE_API_SERVICE_HOST=192.168.1.100" -e "KEYSTONE_PUBLIC_SERVICE_HOST=192.168.1.100" -e "RABBITMQ_SERVICE_HOST=192.168.1.100" -e "NOVA_KEYSTONE_PASSWORD=123456" -v /dev:/dev -v /run:/run -v /sys/fs/cgroup:/sys/fs/cgroup -v /var/lib:/var/lib --net=host sdake/centos-rdo-nova-compute
