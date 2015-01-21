@@ -1,0 +1,22 @@
+SCREEN_LOGDIR=$DEST/logs
+DATABASE_PASSWORD=123456
+RABBIT_PASSWORD=123456
+SERVICE_TOKEN=123456
+SERVICE_PASSWORD=123456
+ADMIN_PASSWORD=123456
+
+disable_service horizon
+disable_service rabbit
+disable_service quantum
+disable_service qpid
+enable_service rabbit
+
+enable_service n-net
+DISABLED_SERVICES=neutron
+
+PUBLIC_INTERFACE=em1
+FLAT_INTERFACE=em1
+
+# Log all output to files
+LOGFILE=$HOME/devstack.log
+SCREEN_LOGDIR=$HOME/logs
