@@ -3,8 +3,9 @@ MAINTAINER Steven Dake (sdake@redhat.com>
 
 # Set up repositories
 RUN yum install -y https://rdo.fedorapeople.org/rdo-release.rpm
-RUN yum -y install dnf dnf-plugins-core; yum clean all
-RUN dnf copr enable -y larsks/crux
+RUN curl https://copr.fedoraproject.org/coprs/larsks/crux/repo/epel-7/larsks-crux-epel-7.repo -o /etc/yum.repos.d/larsks-crux-epel-7.repo
+
+RUN yum install -y epel-release; yum clean all
 
 # Update packages
 RUN yum update -y; yum clean all
@@ -94,4 +95,3 @@ RUN yum install -y \
 RUN mkdir -p /opt/kolla
 ADD service_hosts.sh /opt/kolla/service_hosts.sh
 ADD kolla-common.sh /opt/kolla/kolla-common.sh
-
