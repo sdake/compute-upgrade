@@ -72,7 +72,7 @@ if [ "${NETWORK_MANAGER}" == "nova" ] ; then
   crudini --set $cfg DEFAULT send_arp_for_ha True
   crudini --set $cfg DEFAULT share_dhcp_address True
   crudini --set $cfg DEFAULT force_dhcp_release True
-  crudini --set $cfg DEFAULT flat_interface eth0
+  crudini --set $cfg DEFAULT flat_interface em1
   crudini --set $cfg DEFAULT flat_network_bridge br100
   crudini --set $cfg DEFAULT public_interface eth1
 elif [ "${NETWORK_MANAGER}" == "neutron" ] ; then
