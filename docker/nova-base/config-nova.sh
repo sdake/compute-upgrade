@@ -16,6 +16,7 @@ check_required_vars KEYSTONE_ADMIN_TOKEN \
 
 cfg=/etc/nova/nova.conf
 
+crudini --set $cfg DEFAULT debug True
 crudini --set $cfg DEFAULT amqp_durable_queues False
 crudini --set $cfg DEFAULT rabbit_host ${RABBITMQ_SERVICE_HOST}
 crudini --set $cfg DEFAULT rabbit_port 5672
