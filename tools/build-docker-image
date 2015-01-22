@@ -5,7 +5,7 @@ IMGDIR="$(cd "$(dirname "$0")" && pwd)"
 
 RELEASE_NAMESPACE=sdake
 NAMESPACE=sdake
-PREFIX=centos-rdo-
+PREFIX=fedora-rdo-
 TAG=$(git rev-parse --short HEAD)
 
 usage () {

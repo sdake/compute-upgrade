@@ -1,4 +1,4 @@
-FROM sdake/centos-rdo-nova-base
+FROM sdake/fedora-rdo-nova-base
 MAINTAINER Kolla Project (https://launchpad.net/kolla)
 
 RUN yum -y install openstack-nova-network \

@@ -1,4 +1,4 @@
-FROM sdake/centos-rdo-base
+FROM sdake/fedora-rdo-base
 MAINTAINER Steven Dake <sdake@redhat.com>
 
 RUN yum -y install openstack-nova-common \
