@@ -10,4 +10,4 @@ echo "Starting virtlockd."
 sleep 3
 
 echo "Starting libvirtd."
-/usr/sbin/libvirtd &
+/usr/sbin/libvirtd
