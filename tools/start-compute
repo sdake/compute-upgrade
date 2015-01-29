@@ -20,15 +20,19 @@
 # --privileged - allow container full system capabilities
 # share host networking (--net=host option)
 
+
+PASSWORD=123456
+SERVICE_HOST=192.168.1.100
+
 # start nova network
 
-sudo docker run -d --privileged -e "KEYSTONE_ADMIN_TOKEN=123456" -e "NOVA_DB_PASSWORD=123456" -e "RABBIT_PASSWORD=123456" -e NETWORK_MANAGER="nova" -e "GLANCE_API_SERVICE_HOST=192.168.1.100" -e "KEYSTONE_PUBLIC_SERVICE_HOST=192.168.1.100" -e "RABBITMQ_SERVICE_HOST=192.168.1.100" -e "NOVA_KEYSTONE_PASSWORD=123456" -v /sys/fs/cgroup:/sys/fs/cgroup --net=host sdake/fedora-rdo-nova-network
+sudo docker run -d --privileged -e "KEYSTONE_ADMIN_TOKEN=$PASSWORD" -e "NOVA_DB_PASSWORD=$PASSWORD" -e "RABBIT_PASSWORD=$PASSWORD" -e "RABBIT_USERID=stackrabbit" -e NETWORK_MANAGER="nova" -e "GLANCE_API_SERVICE_HOST=$SERVICE_HOST" -e "KEYSTONE_PUBLIC_SERVICE_HOST=$SERVICE_HOST" -e "RABBITMQ_SERVICE_HOST=$SERVICE_HOST" -e "NOVA_KEYSTONE_PASSWORD=$PASSWORD" -v /sys/fs/cgroup:/sys/fs/cgroup --net=host sdake/fedora-rdo-nova-network
 
 # start libvirtd
-sudo docker run -d --privileged -e "KEYSTONE_ADMIN_TOKEN=123456" -e "NOVA_DB_PASSWORD=123456" -e "RABBIT_PASSWORD=123456" -e NETWORK_MANAGER="nova" -e "GLANCE_API_SERVICE_HOST=192.168.1.100" -e "KEYSTONE_PUBLIC_SERVICE_HOST=192.168.1.100" -e "RABBITMQ_SERVICE_HOST=192.168.1.100" -e "NOVA_KEYSTONE_PASSWORD=123456" -v /sys/fs/cgroup:/sys/fs/cgroup -v /var/lib/nova:/var/lib/nova --pid=host --net=host sdake/fedora-rdo-nova-libvirt
+sudo docker run -d --privileged -e "KEYSTONE_ADMIN_TOKEN=$PASSWORD" -e "NOVA_DB_PASSWORD=$PASSWORD" -e "RABBIT_PASSWORD=$PASSWORD" -e "RABBIT_USERID=stackrabbit" -e NETWORK_MANAGER="nova" -e "GLANCE_API_SERVICE_HOST=$SERVICE_HOST" -e "KEYSTONE_PUBLIC_SERVICE_HOST=$SERVICE_HOST" -e "RABBITMQ_SERVICE_HOST=$SERVICE_HOST" -e "NOVA_KEYSTONE_PASSWORD=$PASSWORD" -v /sys/fs/cgroup:/sys/fs/cgroup -v /var/lib/nova:/var/lib/nova --pid=host --net=host sdake/fedora-rdo-nova-libvirt
 
-sleep 5
+#sleep 5
 
 # start nova compute
 
-sudo docker run -d --privileged -e "KEYSTONE_ADMIN_TOKEN=123456" -e "NOVA_DB_PASSWORD=123456" -e "RABBIT_PASSWORD=123456" -e NETWORK_MANAGER="nova" -e "GLANCE_API_SERVICE_HOST=192.168.1.100" -e "KEYSTONE_PUBLIC_SERVICE_HOST=192.168.1.100" -e "RABBITMQ_SERVICE_HOST=192.168.1.100" -e "NOVA_KEYSTONE_PASSWORD=123456" -v /sys/fs/cgroup:/sys/fs/cgroup -v /var/lib/nova:/var/lib/nova --net=host sdake/fedora-rdo-nova-compute
+sudo docker run -d --privileged -e "KEYSTONE_ADMIN_TOKEN=$PASSWORD" -e "NOVA_DB_PASSWORD=$PASSWORD" -e "RABBIT_PASSWORD=$PASSWORD" -e "RABBIT_USERID=stackrabbit" -e NETWORK_MANAGER="nova" -e "GLANCE_API_SERVICE_HOST=$SERVICE_HOST" -e "KEYSTONE_PUBLIC_SERVICE_HOST=$SERVICE_HOST" -e "RABBITMQ_SERVICE_HOST=$SERVICE_HOST" -e "NOVA_KEYSTONE_PASSWORD=$PASSWORD" -v /sys/fs/cgroup:/sys/fs/cgroup -v /var/lib/nova:/var/lib/nova --net=host sdake/fedora-rdo-nova-compute
